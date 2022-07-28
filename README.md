@@ -36,4 +36,7 @@ Lưu ý: Ở các màn hình danh sách cần thực hiện phân trang, Hiển 
 
 
 
-[url=https://imgbb.com/][img]https://i.ibb.co/YjZ7QP4/Screenshot-3.png[/img][/url]
+
+
+
+![alt text](https://i.ibb.co/YjZ7QP4/Screenshot-3.pn)
