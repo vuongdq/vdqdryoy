@@ -2,6 +2,7 @@ package com.vdqdryoy.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -11,11 +12,12 @@ public class Office {
     private String id;
     private String name;
     private String phone;
-    private String deletedDate;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date deletedDate;
 
     public Office() { }
 
-    public Office(String id, String name, String phone, String deletedDate) {
+    public Office(String id, String name, String phone, Date deletedDate) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -46,11 +48,11 @@ public class Office {
         this.phone = phone;
     }
 
-    public String getDeletedDate() {
+    public Date getDeletedDate() {
         return deletedDate;
     }
 
-    public void setDeletedDate(String deletedDate) {
+    public void setDeletedDate(Date deletedDate) {
         this.deletedDate = deletedDate;
     }
 }

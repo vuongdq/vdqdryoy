@@ -1,22 +1,26 @@
 package com.vdqdryoy.controller;
 
 
+import com.fasterxml.jackson.databind.DatabindException;
 import com.vdqdryoy.model.Office;
+import com.vdqdryoy.repository.OfficesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/office")
 public class OfficeController {
 
     @Autowired
-    MongoRepository officeRepository;
+    OfficesRepository officeRepository;
 
     @GetMapping("/")
     public String getAll(Model model){
@@ -25,16 +29,32 @@ public class OfficeController {
     }
 
     @GetMapping("/showNewOfficeForm")
-    public String showNewProductForm(Model model) {
+    public String showNewOfficeForm(Model model) {
         // create model attribute to bind form data
         Office office = new Office();
         model.addAttribute("office", office);
         return "admin/office/new_office_form";
     }
     @PostMapping("/saveOffice")
-    public String saveProduct(@ModelAttribute("office") Office office) {
-        // save employee to database
+    public String saveOffice(@ModelAttribute("office") Office office) {
+        // save Office to database
+        Calendar calendar = Calendar.getInstance();
+        Date now = calendar.getTime();
+
+        office.setDeletedDate(now);
         officeRepository.save(office);
         return "redirect:/admin/office/";
+    }
+
+    @GetMapping("/update/{id}")
+    public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) {
+
+        // get employee from the service
+        Optional<Office> office = officeRepository.findById(id);
+        if(office.isPresent()){
+
+            model.addAttribute("office", office);
+        }
+        return "admin/office/update_office_form";
     }
 }

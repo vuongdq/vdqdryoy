@@ -19,6 +19,8 @@
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Sign Out"/>
         </form>
+        <a th:href="@{/admin/office/}">Offce</a>
+        <a th:href="@{/admin/user/}">User</a>
 
         <h2>Save Office</h2>
 
@@ -27,9 +29,9 @@
 
             <input type="text" th:field="*{name}" placeholder="Name" class="form-control mb-4 col-4">
             <input type="text" th:field="*{phone}" placeholder="Phone" class="form-control mb-4 col-4">
-            <input type="text" th:field="*{deletedDate}" placeholder="Deleted Date" class="form-control mb-4 col-4">
+            <!--            <input type="text" th:field="*{deletedDate}" placeholder="Deleted Date" class="form-control mb-4 col-4">-->
 
-            <button type="submit" class="btn btn-info col-2"> Save Office</button>
+            <button type="submit" class="btn btn-info col-2">Save Office</button>
         </form>
 
         <hr>
