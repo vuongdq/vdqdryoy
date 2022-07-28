@@ -33,3 +33,7 @@ Khi click vào một user trong màn hình danh sách thì hãy chuyển sang m�
 
 Trên màn hình detail user thì có button update user. Khi click vào button này thì sang màn hình update thông tin user. Các thông tin được update tương tự như màn tạo.
 Lưu ý: Ở các màn hình danh sách cần thực hiện phân trang, Hiển thị 10 đối tượng trên một trang
+
+
+
+[url=https://imgbb.com/][img]https://i.ibb.co/YjZ7QP4/Screenshot-3.png[/img][/url]
