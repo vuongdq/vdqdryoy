@@ -39,4 +39,4 @@ Lưu ý: Ở các màn hình danh sách cần thực hiện phân trang, Hiển 
 
 
 
-![alt text](https://i.ibb.co/YjZ7QP4/Screenshot-3.pn)
+![csdl](https://i.ibb.co/YjZ7QP4/Screenshot-3.pn)
