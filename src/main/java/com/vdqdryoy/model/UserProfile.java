@@ -1,16 +1,11 @@
 package com.vdqdryoy.model;
 
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.annotation.processing.Generated;
 import java.util.Date;
 
-@Document(collection = "user")
-public class User {
-    @Id
+public class UserProfile {
+    // User Entity
     private String id;
     private String firstName;
     private String lastName;
@@ -18,14 +13,17 @@ public class User {
     private String profileId;
     private String address;
     private int accountStatus;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date birthDate;
+    // Profile Entity
+    private String gender;
+    private String phoneNumber;
+    private String career;
 
 
-    public User() {
+    public UserProfile() {
     }
 
-    public User(String id, String firstName, String lastName, String officeId, String profileId, String address, int accountStatus, Date birthDate) {
+    public UserProfile(String id, String firstName, String lastName, String officeId, String profileId, String address, int accountStatus, Date birthDate, String gender, String phoneNumber, String career) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,6 +32,9 @@ public class User {
         this.address = address;
         this.accountStatus = accountStatus;
         this.birthDate = birthDate;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.career = career;
     }
 
     public String getId() {
@@ -98,5 +99,29 @@ public class User {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getCareer() {
+        return career;
+    }
+
+    public void setCareer(String career) {
+        this.career = career;
     }
 }

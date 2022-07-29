@@ -3,17 +3,18 @@ package com.vdqdryoy.controller;
 
 import com.fasterxml.jackson.databind.DatabindException;
 import com.vdqdryoy.model.Office;
+import com.vdqdryoy.model.ResponseObject;
 import com.vdqdryoy.repository.OfficesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin/office")
@@ -28,6 +29,7 @@ public class OfficeController {
         return "admin/office/home";
     }
 
+
     @GetMapping("/showNewOfficeForm")
     public String showNewOfficeForm(Model model) {
         // create model attribute to bind form data
@@ -40,8 +42,8 @@ public class OfficeController {
         // save Office to database
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
-
-        office.setDeletedDate(now);
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        office.setId(uuid);
         officeRepository.save(office);
         return "redirect:/admin/office/";
     }
@@ -57,4 +59,25 @@ public class OfficeController {
         }
         return "admin/office/update_office_form";
     }
+    @PostMapping("/updateOffice")
+    public String updateOffice(@ModelAttribute("office") Office office) {
+        // save Office to database
+        Calendar calendar = Calendar.getInstance();
+        Date now = calendar.getTime();
+        officeRepository.save(office);
+        return "redirect:/admin/office/";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteOffice(@PathVariable String id){
+
+
+
+
+        return "redirect:/admin/office/";
+
+
+    }
+
+
 }

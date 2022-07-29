@@ -25,12 +25,9 @@
         <h2>Save Office</h2>
 
         <form action="#" th:action="@{/admin/office/saveOffice}" th:object="${office}" method="POST">
-            <input type="text" th:field="*{id}" placeholder="ID" class="form-control mb-4 col-4">
-
             <input type="text" th:field="*{name}" placeholder="Name" class="form-control mb-4 col-4">
             <input type="text" th:field="*{phone}" placeholder="Phone" class="form-control mb-4 col-4">
-            <!--            <input type="text" th:field="*{deletedDate}" placeholder="Deleted Date" class="form-control mb-4 col-4">-->
-
+            <br>
             <button type="submit" class="btn btn-info col-2">Save Office</button>
         </form>
 

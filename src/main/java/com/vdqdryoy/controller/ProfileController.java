@@ -21,22 +21,10 @@ public class ProfileController {
 
     @Autowired
     ProfileRepository profileRepository;
+
     @GetMapping("/")
     public String getAll(Model model){
         model.addAttribute("listProfiles",profileRepository.findAll());
         return "admin/profile/home";
-    }
-    @GetMapping("/newForm")
-    public String newForm(Model model) {
-        // create model attribute to bind form data
-        Profile profile = new Profile();
-        model.addAttribute("profile", profile);
-        return "admin/profile/new_form";
-    }
-    @PostMapping("/saveProfile")
-    public String saveProfile(@ModelAttribute("profile") Profile profile) {
-
-        profileRepository.save(profile);
-        return "redirect:/admin/profile/";
     }
 }
