@@ -70,10 +70,14 @@ public class OfficeController {
 
     @GetMapping("/delete/{id}")
     public String deleteOffice(@PathVariable String id){
-
-
-
-
+        Optional<Office> foundOffice = officeRepository.findById(id);
+        if(foundOffice.isPresent()){
+            Calendar calendar = Calendar.getInstance();
+            Date now = calendar.getTime();
+            Office office = foundOffice.get();
+            office.setDeletedDate(now);
+            officeRepository.save(office);
+        }
         return "redirect:/admin/office/";
 
 

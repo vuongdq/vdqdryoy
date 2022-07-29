@@ -43,6 +43,12 @@
                     <b>Address: </b><i><td th:text="${user.address}"></td></i> <br>
                     <b>Phone Number: </b><i><td th:text="${profile.phoneNumber}"></td></i> <br>
                     <b>Gender: </b><i><td th:text="${profile.gender}"></td></i> <br>
+                    <b>accountStatus: </b><i><td th:text="${user.accountStatus}"></td></i> <br>
+
+                    <td> <a th:href="@{/admin/user/detail/{id}(id=${user.id})}" class="btn btn-primary">Detail</a>
+                    </td>
+                    <td> <a th:href="@{/admin/user/delete/{id}(id=${user.id})}" class="btn btn-primary">Delete</a>
+                    </td>
 
                 </div>
             </div>

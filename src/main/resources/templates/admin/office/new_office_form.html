@@ -16,13 +16,18 @@
 <div class="container">
     <div class="jumbotron">
         <h1 class="display-3">Office Management</h1>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-        <a th:href="@{/admin/office/}">Offce</a>
-        <a th:href="@{/admin/user/}">User</a>
+        <a class="btn btn-info col-2" th:href="@{/admin/office/}">Office</a>
+        <a class="btn btn-info col-2" th:href="@{/admin/user/}">User</a>
+        <a class="btn btn-info col-2" th:href="@{/admin/profile/}">Profile</a>
+
+        <div class="card">
+            <div class="card-header">
+                User List
+            </div>
+            <div class="card-block">
 
         <h2>Save Office</h2>
+                <hr>
 
         <form action="#" th:action="@{/admin/office/saveOffice}" th:object="${office}" method="POST">
             <input type="text" th:field="*{name}" placeholder="Name" class="form-control mb-4 col-4">
@@ -34,6 +39,7 @@
         <hr>
 
         <a th:href="@{/admin/office/}"> Back to Office List</a>
+            </div></div>
     </div>
 </div>
 

@@ -18,9 +18,17 @@
     <h1 class="display-3">Office Management</h1>
 
     <a type="button" class="btn btn-info col-2" th:href="@{/admin/user/showNewUserForm}">New User</a>
-    <a th:href="@{/admin/office/}">Offce</a>
-    <a th:href="@{/admin/user/}">User</a>
-    <a th:href="@{/admin/profile/}">Profile</a>
+      <a class="btn btn-info col-2" th:href="@{/admin/office/}">Office</a>
+      <a class="btn btn-info col-2" th:href="@{/admin/user/}">User</a>
+      <a class="btn btn-info col-2" th:href="@{/admin/profile/}">Profile</a>
+      <hr>
+
+
+      <div class="card">
+          <div class="card-header">
+              User List
+          </div>
+          <div class="card-block">
 
 
     <select class="form-control" id="dropDownList">
@@ -38,26 +46,30 @@
 <!--        <th>Office ID</th>-->
 <!--        <th>Profile ID</th>-->
         <th>Address</th>
-        <th>Account Status</th>
-        <th>Birth Date</th>
+        <th>Gender</th>
+        <th>Phone Number</th>
+          <th>Career</th>
         <th>Action</th>
       </tr>
       </thead>
       <tbody>
-      <tr th:each="user : ${listUsers}">
-<!--        <td th:text="${user.id}"></td>-->
+      <tr th:each="user : ${listUserProfile}">
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
-<!--        <td th:text="${user.officeId}"></td>-->
-<!--        <td th:text="${user.profileId}"></td>-->
         <td th:text="${user.address}"></td>
-        <td th:text="${user.accountStatus}"></td>
-        <td th:text="${user.birthDate}"></td>
-        <td> <a th:href="@{/admin/user/detail/{id}(id=${user.id})}" class="btn btn-primary">Detail</a>
+        <td th:text="${user.gender}"></td>
+        <td th:text="${user.phoneNumber}"></td>
+          <td th:text="${user.career}"></td>
+        <td>
+            <a th:href="@{/admin/user/detail/{id}(id=${user.id})}" class="btn btn-primary">Detail</a>
+            <a th:href="@{/admin/user/delete/{id}(id=${user.id})}" class="btn btn-danger" th:data-confirm-delete="|Are you sure you want to delete this User ${user.firstName} ${user.lastName}?|"
+               onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">Delete</a>
         </td>
       </tr>
       </tbody>
     </table>
+          </div>
+      </div></div>
 
   </div>
 </div>
