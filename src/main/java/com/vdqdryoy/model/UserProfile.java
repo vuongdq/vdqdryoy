@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class UserProfile {
     // User Entity
+    private int userProfileId;
     private String id;
     private String firstName;
     private String lastName;
@@ -23,6 +24,11 @@ public class UserProfile {
     public UserProfile() {
     }
 
+    public UserProfile(int userProfileId, String firstName) {
+        this.userProfileId = userProfileId;
+        this.firstName = firstName;
+    }
+
     public UserProfile(String id, String firstName, String lastName, String officeId, String profileId, String address, int accountStatus, Date birthDate, String gender, String phoneNumber, String career) {
         this.id = id;
         this.firstName = firstName;
@@ -35,6 +41,14 @@ public class UserProfile {
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.career = career;
+    }
+
+    public int getUserProfileId() {
+        return userProfileId;
+    }
+
+    public void setUserProfileId(int userProfileId) {
+        this.userProfileId = userProfileId;
     }
 
     public String getId() {

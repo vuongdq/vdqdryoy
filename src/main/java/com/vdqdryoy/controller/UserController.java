@@ -6,14 +6,21 @@ import com.vdqdryoy.model.User;
 import com.vdqdryoy.model.UserProfile;
 import com.vdqdryoy.repository.OfficesRepository;
 import com.vdqdryoy.repository.ProfileRepository;
+import com.vdqdryoy.repository.UserProfileService;
 import com.vdqdryoy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/admin/user")
@@ -27,43 +34,42 @@ public class UserController {
     @Autowired
     ProfileRepository profileRepository;
 
+    @Autowired
+    UserProfileService userProfileService;
+
     @GetMapping("/")
     public String getAll(Model model){
+        return "redirect:/admin/user/listUsers";
+    }
+
+    @GetMapping(value = "listUsers")
+    public String ListUser(Model model,@RequestParam("page") Optional<Integer> page,
+                           @RequestParam("size") Optional<Integer> size){
 
         List<Office> office = officesRepository.findAll();
         model.addAttribute("listOffice",officesRepository.findAll());
 
-        List<User> listUsers = userRepository.findAll();
+        int curentPage = page.orElse(1);
+        int pageSize = size.orElse(2);
+        Page<UserProfile> userProfilesPage = userProfileService.findPageinated(PageRequest.of(curentPage-1,pageSize));
+        model.addAttribute("userPage",userProfilesPage);
+        int totalPages = userProfilesPage.getTotalPages();
+        if (totalPages >0){
+            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers",pageNumbers);
+        }
 
-//        model.addAttribute("listUsers",listUsers);
+        List<User> userListByOffice = userRepository.findByOfficeId("046405e40301413eab23c924d0ccb333");
+        if(!userListByOffice.isEmpty()){
+            model.addAttribute("userListByOffice",userListByOffice);
+        }
 
-        List<UserProfile> listUserProfile = new ArrayList<>();
+        return "admin/user/listusers";
 
-        listUsers.forEach((user -> {
-            String userId = user.getId();
-            Optional<Profile> profile = profileRepository.findById(userId);
-
-            if (profile.isPresent()) {
-                Profile profile1 = profile.get();
-                UserProfile userProfile = new UserProfile();
-                userProfile.setId(user.getId());
-                userProfile.setFirstName(user.getFirstName());
-                userProfile.setFirstName(user.getLastName());
-                userProfile.setAddress(user.getAddress());
-                userProfile.setGender(profile1.getGender());
-                userProfile.setPhoneNumber(profile1.getPhoneNumber());
-                userProfile.setCareer(profile1.getCareer());
-                // Add to List
-                listUserProfile.add(userProfile);
-            }
-
-
-        }));
-
-        model.addAttribute("listUserProfile",listUserProfile);
-
-        return "admin/user/home";
     }
+
 
     @GetMapping("/detail/{id}")
     public String detailUser(@PathVariable(value = "id") String id, Model model){
@@ -75,6 +81,15 @@ public class UserController {
         }
 
         return "admin/user/detail";
+    }
+
+    @PostMapping("/userByOfficeId")
+    public String detailUserByOffice(@ModelAttribute("userByOfficeId") String officeId, Model model)
+    {
+        List<User> userByOfficeId = userRepository.findByOfficeId(officeId);
+        final Model userByOfficeId1 = model.addAttribute("userByOfficeId", userByOfficeId);
+
+        return "admin/user/detailuserbyofice";
     }
 
 
